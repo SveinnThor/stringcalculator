@@ -40,7 +40,27 @@ public class CalculatorTest {
 	}	
 
 	@Test
-    public void testMultipleNumbers(){
+    public void testMultipleNumbers() {
     	assertEquals(6, Calculator.add("1,2,3"));
+    }
+
+    @Test
+    public void testMultipleNumbersNewDelim1() {
+    	assertEquals(6, Calculator.add("1\n2,3"));
+    }
+
+    @Test
+    public void testMultipleNumbersNewDelim2() {
+    	assertEquals(6, Calculator.add("1,2\n3"));
+    }
+
+    @Test
+    public void testMultipleNumbersNewDelim3() {
+    	assertEquals(10, Calculator.add("1\n2,3\n4"));
+    }
+
+    @Test
+    public void testMultipleNumbersNewDelim4() {
+    	assertEquals(6, Calculator.add("1\n2\n3"));
     }
 }
