@@ -31,6 +31,23 @@ public class Calculator {
 	private static String[] splitNumbers(String delim, String numbers) {
 	    return numbers.split(delim);
 	}
+
+	private static String negativeError(Vector vec) {
+		String error = "";
+		if(vec.size() > 0) {
+			error = "Negatives not allowed: ";
+			error += vec.elementAt(0);
+			vec.remove(0);
+			
+			for(int i = 0; i < vec.size(); i++) {
+			error += ",";
+			error += vec.elementAt(i);
+			}
+			return error;
+		}
+
+		return error;
+	}
       
     private static int sum(String[] numbers) {
     	Vector<String> negatives = new Vector<String>();
@@ -43,18 +60,11 @@ public class Calculator {
         		total += tmp;
         	}
 		}
-		    if(negatives.size() > 0) {
-			String error = "Negatives not allowed: ";
-			error += negatives.elementAt(0);
-			negatives.remove(0);
-			
-			for(int i = 0; i < negatives.size(); i++) {
-			error += ",";
-			error += negatives.elementAt(i);
-			}
-
+		    String error = negativeError(negatives);
+			if(error.length() > 0){
 			throw new RuntimeException(error);
 			}
+
 		return total;
     }
 
