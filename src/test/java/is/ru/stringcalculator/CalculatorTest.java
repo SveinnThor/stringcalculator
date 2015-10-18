@@ -123,4 +123,23 @@ public class CalculatorTest {
         assertEquals(1001, Calculator.add("1001,1000,1"));
     }
 
+    @Test
+    public void delimiterOfAnyLength() {
+        assertEquals(6, Calculator.add("//[***]\n1***2***3"));
+    }
+
+    @Test
+    public void delimiterOfAnyLength1() {
+        assertEquals(6, Calculator.add("//[***]\n1***2***3"));
+    }
+
+    @Test
+    public void delimiterOfAnyLength2() {
+        assertEquals(6, Calculator.add("//[{{{]\n1{{{2{{{3"));
+    }
+
+    @Test
+    public void delimiterOfAnyLength3() {
+        assertEquals(6, Calculator.add("//[,{,]\n1,{,2,{,3"));
+    }
 }

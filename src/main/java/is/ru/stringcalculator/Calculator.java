@@ -5,16 +5,17 @@ import java.util.Vector;
 public class Calculator {
 
 	public static int add(String text) {
-		if(text.equals("")){
-			return 0;
-		}
-		else if(text.startsWith("//")) {
-			String delim = String.valueOf(text.charAt(2));
+		if(text.startsWith("//")) {
+			String delim = deliminator(text);
 			text = text.substring(text.indexOf("\n") + 1);
 
-			delim = checkForStar(delim);
+			delim = checkRegEx(delim);
 
 			return sum(splitNumbers(delim, text));
+		}
+
+		if(text.equals("")){
+			return 0;
 		}
 		else if(text.contains(",") || text.contains("\n")) {
 			String delim = ",|\n";
@@ -48,6 +49,15 @@ public class Calculator {
 
 		return error;
 	}
+
+	private static String deliminator(String delim) {
+		String tmp;
+		if(delim.charAt(2) == '[') {
+			return delim.substring(3, delim.indexOf("]"));
+		}
+
+		return String.valueOf(delim.charAt(2));
+	}
       
     private static int sum(String[] numbers) {
     	Vector<String> negatives = new Vector<String>();
@@ -60,7 +70,7 @@ public class Calculator {
         		if(tmp > 1000) {
         		tmp = 0;
         		}
-        		
+
         		total += tmp;
         	}
 		}
@@ -72,15 +82,8 @@ public class Calculator {
 		return total;
     }
 
-    private static String checkForStar(String delim) {
-    	if(delim.contains("*")) {
-    		String tmp = delim;
-    		delim = "\\";
-    		delim += tmp;
-
-    		return delim;
-    	}
-
-    	return delim;
+    private static String checkRegEx(String delim) {
+    		String tmp = ("\\Q" + delim + "\\E");
+    		return tmp;
     }
 }
