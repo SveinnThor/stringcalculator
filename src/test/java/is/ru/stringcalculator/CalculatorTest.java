@@ -162,4 +162,10 @@
         public void multipleDelimiters4() {
             assertEquals(10, Calculator.add("//[*{][{*][*%]\n1*{2*%3{*4"));
         }
+
+        /*
+        @Test
+        public void multipleDelimiters5() {
+            assertEquals(15, Calculator.add("//[*][{*#][;:']['*%*]\n1*2*\"3;:'4'*%*5"));
+        }*/
     }

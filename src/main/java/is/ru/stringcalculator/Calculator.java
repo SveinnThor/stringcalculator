@@ -31,19 +31,19 @@
 		}
 
 		private static String[] splitNumbers(String delim, String numbers) {
-		    return numbers.split(delim);
+			return numbers.split(delim);
 		}
 
-		private static String negativeError(Vector vec) {
+		private static String negativeError(Vector negatives) {
 			String error = "";
-			if(vec.size() > 0) {
+			if(negatives.size() > 0) {
 				error = "Negatives not allowed: ";
-				error += vec.elementAt(0);
-				vec.remove(0);
+				error += negatives.elementAt(0);
+				negatives.remove(0);
 				
-				for(int i = 0; i < vec.size(); i++) {
-				error += ",";
-				error += vec.elementAt(i);
+				for(int i = 0; i < negatives.size(); i++) {
+					error += ",";
+					error += negatives.elementAt(i);
 				}
 				return error;
 			}
@@ -61,7 +61,7 @@
 
 						for(i = ++i; i < delimToReturn.length(); i++) {
 							if(delimToReturn.charAt(i) != ']'){
-							temp += delimToReturn.charAt(i);
+								temp += delimToReturn.charAt(i);
 							} else {
 								temp += "|";
 								break;
@@ -76,47 +76,49 @@
 
 			return String.valueOf(delim.charAt(2));
 		}
-	      
-	    private static int sum(String[] numbers) {
-	    	Vector<String> negatives = new Vector<String>();
-	 	    int total = 0;
-	        for(String number : numbers) {
-	        	int temp = toInt(number);
-	        	if(temp < 0) {
-	        		negatives.add(number);
-	        	} else {
-	        		if(temp > 1000) {
-	        		temp = 0;
-	        		}
 
-	        		total += temp;
-	        	}
-			}
-			    String error = negativeError(negatives);
-				if(error.length() > 0){
-				throw new RuntimeException(error);
+		private static int sum(String[] numbers) {
+			Vector<String> negatives = new Vector<String>();
+			int total = 0;
+
+			for(String number : numbers) {
+				int temp = toInt(number);
+				if(temp < 0) {
+					negatives.add(number);
+				} else {
+					if(temp > 1000) {
+						temp = 0;
+					}
+
+					total += temp;
 				}
+			}
+
+			String error = negativeError(negatives);
+			if(error.length() > 0){
+				throw new RuntimeException(error);
+			}
 
 			return total;
-	    }
+		}
 
-	    private static String checkRegEx(String delim) {
-	    	String tmp = "";
-	    	if(delim.contains("|")) {
-	    		for(int i = 0; i < delim.length(); i++) {
-	    			if(delim.charAt(i) != '|'){
-	    				tmp += "\\";
-	    				tmp += delim.charAt(i);
-	    			} else {
-	    				tmp += delim.charAt(i);
-	    			}
-	    			
-	    		}
-	    	}
-	    	else{
-	    		tmp = ("\\Q" + delim + "\\E");
-	    	}
-	    		
-	    		return tmp;
-	    }
+		private static String checkRegEx(String delim) {
+			String tmp = "";
+
+			if(delim.contains("|")) {
+				for(int i = 0; i < delim.length(); i++) {
+					if(delim.charAt(i) != '|'){
+						tmp += "\\";
+						tmp += delim.charAt(i);
+					} else {
+						tmp += delim.charAt(i);
+					}
+				}
+			}
+			else {
+				tmp = ("\\Q" + delim + "\\E");
+			}
+
+			return tmp;
+		}
 	}
