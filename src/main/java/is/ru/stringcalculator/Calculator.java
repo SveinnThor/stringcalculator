@@ -57,6 +57,10 @@ public class Calculator {
         	if(tmp < 0) {
         		negatives.add(number);
         	} else {
+        		if(tmp > 1000) {
+        		tmp = 0;
+        		}
+        		
         		total += tmp;
         	}
 		}

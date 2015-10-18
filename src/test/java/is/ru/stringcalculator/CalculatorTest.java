@@ -108,4 +108,19 @@ public class CalculatorTest {
     Calculator.add("2,-5,-99,13,18,74,-75,-88");
     }
 
+    @Test
+    public void ignoreNumbersLargerThan10001() {
+        assertEquals(2, Calculator.add("1001,2"));
+    }
+
+    @Test
+    public void ignoreNumbersLargerThan10002() {
+        assertEquals(1001, Calculator.add("1001,2,999"));
+    }
+
+    @Test
+    public void ignoreNumbersLargerThan10003() {
+        assertEquals(1001, Calculator.add("1001,1000,1"));
+    }
+
 }
