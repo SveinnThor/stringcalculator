@@ -63,4 +63,21 @@ public class CalculatorTest {
     public void testMultipleNumbersNewDelim4() {
     	assertEquals(6, Calculator.add("1\n2\n3"));
     }
+
+    @Test
+    public void testDifferentDelim1() {
+    	assertEquals(3, Calculator.add("//;\n1;2"));
+    }
+
+    @Test
+    public void testDifferentDelim2() {
+    	assertEquals(6, Calculator.add("//:\n1:2:3"));
+    }
+
+    @Test
+    public void testDifferentDelim3() {
+    	assertEquals(6, Calculator.add("//*\n1*2*3"));
+    }
+
+
 }
